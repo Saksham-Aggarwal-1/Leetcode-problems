@@ -1,2 +1,2 @@
 # Leetcode-problems
-Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)
+Repository to maintain all the correct submissions made on the problem solving questions involving various data structures and algorithms on the platform of Leetcode.

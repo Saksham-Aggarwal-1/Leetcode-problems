@@ -1,0 +1,1 @@
+This solution correctly implements custom comparator.

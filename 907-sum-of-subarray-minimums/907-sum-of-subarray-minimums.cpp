@@ -1,48 +1,48 @@
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
-        int n = arr.size();
-        vector<int> left(n, -1);
-        stack<int> st;
-        for(int i=0;i<n;i++)
-        {
-            while(!st.empty() && arr[st.top()]>=arr[i])
-                st.pop();
-            if(!st.empty())
-                left[i] = st.top();
-            else
-                left[i]=-1;
-            st.push(i);
+        int base=1000000000+7;
+        vector<int> leftmin(arr.size(),0),rightmin(arr.size(),0);
+        leftmin[0]=-1; 
+        rightmin[arr.size()-1]=arr.size();
+        for(int i=0;i<arr.size()-1;i++){
+            if(arr[i+1]>arr[i]){
+                leftmin[i+1]=i;
+            }
+            else{
+                int l=i;
+                while( arr[i+1]<arr[l] && leftmin[l]!=-1){
+                    l=leftmin[l];
+                }
+                if(arr[i+1]>=arr[l]){
+                    leftmin[i+1]=l;
+                }
+                else{
+                    leftmin[i+1]=-1;
+                }
+            }
         }
-//         cout<<"left: ";
-//         for(int i:left)
-//             cout<<i<<" ";
-//         cout<<"\n";
-        
-        vector<int> right(n, -1);
-        stack<int> st1;
-        for(int i=n-1;i>-1;i--)
-        {
-            while(!st1.empty() && arr[st1.top()]>arr[i])
-                st1.pop();
-            if(!st1.empty())
-                right[i] = st1.top();
-            else
-                right[i] = n;
-            st1.push(i);
+        for(int i=(arr.size()-1);i>0;i--){
+            if(arr[i-1]>arr[i]){
+                rightmin[i-1]=i;
+            }
+            else{
+                int l=i;
+                while(arr[i-1]<=arr[l] && rightmin[l]!=arr.size()){ 
+                    l=rightmin[l];
+                }
+                if(arr[i-1]>arr[l]){
+                    rightmin[i-1]=l;
+                }
+                else{
+                    rightmin[i-1]=arr.size();
+                }
+            }
         }
-//         cout<<"right: ";
-//         for(int i:right)
-//             cout<<i<<" ";
-//         cout<<"\n";
-        
-        long long int sum=0, mod=1e9+7;
-        for(int i=0;i<n;i++)
-        {
-            sum = (sum+(long long)arr[i]*(long long)(i-left[i])*(long long)(right[i]-i))%mod;
+        long long int res=0;
+        for(int i=0;i<arr.size();i++){ 
+            res=res%base+((long long)(i-leftmin[i])*(long long)(rightmin[i]-i)*(long long)arr[i]);
         }
-        
-        return sum;
-        
+        return res;
     }
 };

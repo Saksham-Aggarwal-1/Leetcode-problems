@@ -14,9 +14,7 @@ public:
                 dp.push_back(i);
             else
             {
-                int idx=0;
-                while(dp[idx]<i)
-                    idx++;
+                int idx=lower_bound(dp.begin(), dp.end(), i)-dp.begin();
                 dp[idx] = i;
             }
         }

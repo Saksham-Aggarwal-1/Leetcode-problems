@@ -1,0 +1,1 @@
+*Always use -arr.begin() in lower_bound function for binary search*

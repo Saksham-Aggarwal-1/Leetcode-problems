@@ -1,37 +1,19 @@
 class Solution {
 public:
-    static bool cmp(vector<int> v1, vector<int> v2)
-    {
-        if(v1[1]<v2[1] || (v1[1]==v2[1] && v1[2]<v2[2]))
-            return true;
-        return false;
-    }
-        
-    bool carPooling(vector<vector<int>>& trips, int capacity)
-    {
-        int n = trips.size() ;
-		
-        sort(trips.begin(),trips.end(),cmp) ;
-        
-        int curr = 0 ;
-        
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq; // destination , numpassengers
-        
-        for(int i=0;i<n;i++)
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        vector<int> total(1001, 0);
+        for(auto v: trips)
         {
-			while(!pq.empty() && pq.top().first<=trips[i][1])
-            {
-                curr-=pq.top().second ;
-                pq.pop() ;
-            }
-            
-			pq.push({trips[i][2],trips[i][0]}) ;
-            curr+=trips[i][0] ;
-			
-			if(curr>capacity)
-                return false ;
+            for(int i=v[1];i<v[2];i++)
+                total[i] += v[0];
         }
-		
-        return true ;  
+        
+        for(int i:total)
+        {
+            if(i>capacity)
+                return false;
+        }
+        
+        return true;
     }
 };

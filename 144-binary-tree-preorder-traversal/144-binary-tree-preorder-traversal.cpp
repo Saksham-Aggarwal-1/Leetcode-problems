@@ -19,16 +19,13 @@ public:
         st.push(root);
         while(!st.empty())
         {
-                preorder.push_back(root->val);
+                root = st.top();
+                st.pop();
                 if(root->right)
                     st.push(root->right);
                 if(root->left)
                     st.push(root->left);
-                if(!st.empty())
-                {
-                    root = st.top();
-                    st.pop();    
-                }
+                preorder.push_back(root->val);
         }
         
         return preorder;

@@ -13,7 +13,6 @@ public:
             else
             {
                 l++;
-                h--;
             }
         }
         

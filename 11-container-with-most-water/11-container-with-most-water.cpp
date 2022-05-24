@@ -12,7 +12,7 @@ public:
                 l++;
             else
             {
-                l++;
+                h--;
             }
         }
         
